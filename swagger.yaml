@@ -27,8 +27,8 @@ paths:
           description: Assignment created
           schema:
             $ref: "#/definitions/Assignment"
-        default:
-          description: Unexpected error
+        400:
+          description: Bad request
           schema:
             $ref: "#/definitions/Error"
     get:
@@ -46,8 +46,8 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Assignment"
-        default:
-          description: Unexpected error
+        404:
+          description: List not found
           schema:
             $ref: "#/definitions/Error"
   /assignment/{id}:
@@ -64,8 +64,8 @@ paths:
           description: Assignment retrieved
           schema:
             $ref: "#/definitions/Assignment"
-        default:
-          description: Unexpected error
+        404:
+          description: Id not found
           schema:
             $ref: "#/definitions/Error"  
     put:
@@ -87,8 +87,8 @@ paths:
           description: Assignment modified
           schema:
             $ref: "#/definitions/Assignment"
-        default:
-          description: Unexpected error
+        409:
+          description: Conflict can't update
           schema:
             $ref: "#/definitions/Error"
     delete:
@@ -104,8 +104,8 @@ paths:
           description: Assignment deleted
           schema:
             $ref: "#/definitions/Assignment"
-        default:
-          description: Unexpected error
+        404:
+          description: Id not found
           schema:
             $ref: "#/definitions/Error"
 
