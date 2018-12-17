@@ -12,4 +12,126 @@ consumes:
 produces:
   - application/json
 paths:
-  
+  /assignments:
+    post:
+      description: Post the worker's assignment
+      parameters:
+        - name: Assignment-body
+          in: body
+          description: The implementation of the assignment
+          required: true
+          schema:
+            $ref: "#/definitions/Assignment"
+      responses:
+        201:
+          description: Assignment created
+          schema:
+            $ref: "#/definitions/Assignment"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      description: Retrieves the list of assignment per workerId
+      parameters:
+        - name: workerID
+          description: UUID of worker
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: List of assignments retrieved
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Assignment"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+  /assignment/{id}:
+    get:
+      description: Retrieves the specified assignment
+      parameters:
+        - name: id
+          in: path
+          description: The UUID of the assignment
+          required: true
+          type: string
+      responses:
+        200:
+          description: Assignment retrieved
+          schema:
+            $ref: "#/definitions/Assignment"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"  
+    put:
+      description: Modifies the worker's assignment
+      parameters:
+        - name: id
+          in: path
+          description: The id of the assignment to change
+          required: true
+          type: string
+        - name: Assignment-body
+          in: body
+          description: The body of the new assignment
+          required: true
+          schema:
+            $ref: "#/definitions/Assignment"
+      responses:
+        202:
+          description: Assignment modified
+          schema:
+            $ref: "#/definitions/Assignment"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      description: Deletes the specified exam
+      parameters:
+        - name: id
+          in: path
+          description: The id of the assignment to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: Assignment deleted
+          schema:
+            $ref: "#/definitions/Assignment"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+
+definitions:
+  Assignment:
+    required:
+      - assignmentID
+      - workerID
+      - taskID
+      - assignmentResult
+    properties:
+      assignmentID:
+        type: string
+      workerID:
+        type: string
+      taskID:
+        type: string
+      assignmentResult:
+        type: object
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
