@@ -48,7 +48,7 @@ app.post('/assignments', (req, res) => {
       }
       if(valid){
          db.push(body)
-         res.status(200).send(JSON.stringify(body));
+         res.status(201).send(JSON.stringify(body));
       }else{
          res.status(400).end(JSON.stringify({code: 400, message: "Bad Request"}));
       }
@@ -117,6 +117,9 @@ app.delete('/assignments/:assignmentID', (req, res) => {
       res.status(404).end(JSON.stringify({code: 404, message: "Id not found"}));
 });
 
-app.listen(app.get('port'), () => {
+let server = app.listen(app.get('port'), () => {
    console.log("Node server listening on port " + app.get('port'));
 });
+
+module.exports = {app: app,
+                  server: server};
